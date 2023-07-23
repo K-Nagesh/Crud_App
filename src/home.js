@@ -12,18 +12,26 @@ const Home = ({userData, fetchUserDataFromAPI, deleteUserData, navigation}) => {
   const renderItemComponent = ({item}) => {
     return (
       <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => {
-            navigationToUpdateList(item);
-          }}>
-          <Text style={styles.textContent}>{item.title}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            handleDelete(item.id);
-          }}>
-          <Text style={styles.deleteText}>Delete</Text>
-        </TouchableOpacity>
+        <View style={{paddingHorizontal: 16, paddingVertical: 8}}>
+          <TouchableOpacity
+            style={styles.deleteButton}
+            onPress={() => {
+              handleDelete(item.id);
+            }}>
+            <Text style={styles.deleteText}>Delete</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => {
+              navigationToUpdateList(item);
+            }}>
+            <Text style={styles.textContent}>Id: {item.id}</Text>
+            <Text style={[styles.textContent, {paddingVertical: 15}]}>
+              Title: {item.title}
+            </Text>
+
+            <Text style={styles.textContent}>Description: {item.body}</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   };
@@ -56,17 +64,13 @@ const Home = ({userData, fetchUserDataFromAPI, deleteUserData, navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
     backgroundColor: 'blue',
   },
   textContent: {
     fontSize: 20,
     color: 'white',
   },
+
   deleteText: {
     fontSize: 16,
     color: 'red',
@@ -75,6 +79,9 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderBottomWidth: 1,
     borderColor: 'white',
+  },
+  deleteButton: {
+    alignItems: 'flex-end',
   },
 });
 
